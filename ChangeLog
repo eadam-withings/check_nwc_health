@@ -1,3 +1,5 @@
+* 2026-06-18 12.12.3
+  add a filter to ipRouteTable (for mode count-routes --name ...)
 * 2026-04-17 12.12.2.5
   bugfix in Cisco WLC caching
   no more parameter tweaking for Huawei hwEntity (since GLPlugin uses SNMP-XS)
