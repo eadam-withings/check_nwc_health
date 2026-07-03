@@ -11,6 +11,8 @@ sub init {
       $self->analyze_and_check_cpu_subsystem("CheckNwcHealth::Lancom::LCOSSX::Component::CpuSubsystem");
     } elsif ($self->mode =~ /device::hardware::memory/) {
       $self->analyze_and_check_mem_subsystem("CheckNwcHealth::Lancom::LCOSSX::Component::MemSubsystem");
+    } elsif ($self->mode =~ /device::interfaces/) {
+      $self->analyze_and_check_interface_subsystem("CheckNwcHealth::Lancom::LCOSSX::Component::InterfaceSubsystem");
     } else {
       $self->no_such_mode();
     }

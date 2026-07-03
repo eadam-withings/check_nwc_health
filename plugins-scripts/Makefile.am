@@ -583,6 +583,7 @@ EXTRA_MODULES=\
   CheckNwcHealth/Lancom/LCOSSX/Component/CpuSubsystem.pm \
   CheckNwcHealth/Lancom/LCOSSX/Component/EnvironmentalSubsystem.pm \
   CheckNwcHealth/Lancom/LCOSSX/Component/MemSubsystem.pm \
+  CheckNwcHealth/Lancom/LCOSSX/Component/InterfaceSubsystem.pm \
   CheckNwcHealth/Lancom.pm \
   CheckNwcHealth/DrayTek/Vigor/Component/CpuSubsystem.pm \
   CheckNwcHealth/DrayTek/Vigor/Component/EnvironmentalSubsystem.pm \

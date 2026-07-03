@@ -1,3 +1,6 @@
+* 2026-07-03 12.13
+  --name3 can now use any attribute for filting interfaces, with ifAlias still being the default.
+  Currently implemented for Lancom as --name3 lcsPortConfDescription::guestWifi)
 * 2026-06-18 12.12.3
   add a filter to ipRouteTable (for mode count-routes --name ...)
 * 2026-04-17 12.12.2.5

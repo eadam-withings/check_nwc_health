@@ -686,10 +686,28 @@ sub make_ifdescr_unique {
 sub get_interface_indices {
   my ($self) = @_;
   my @indices = ();
+  # --name3 accepts a plain value (matched against ifAlias, the unchanged
+  # default) or an explicit "<attribute>::<value>" form to match against any
+  # other attribute already present in the interface cache (standard fields
+  # or vendor fields added by a vendor's enrich_interface_cache()). The
+  # prefix is only honored if it looks like a bare identifier AND is really
+  # a populated cache key somewhere - this guards against a real ifAlias
+  # that happens to contain "::" itself, which must keep matching literally.
+  my $name3_attr = 'ifAlias';
+  my $name3_value = $self->opts->name3;
+  if (defined $self->opts->name3 && $self->opts->name3 =~ /^(\w+)::(.*)$/s) {
+    my ($candidate_attr, $candidate_value) = ($1, $2);
+    foreach my $cache_entry (values %{$self->{interface_cache}}) {
+      if (exists $cache_entry->{$candidate_attr}) {
+        $name3_attr = $candidate_attr;
+        $name3_value = $candidate_value;
+        last;
+      }
+    }
+  }
   foreach my $ifIndex (keys %{$self->{interface_cache}}) {
     my $ifDescr = $self->{interface_cache}->{$ifIndex}->{ifDescr};
     my $ifUniqDescr = $self->{interface_cache}->{$ifIndex}->{ifUniqDescr};
-    my $ifAlias = $self->{interface_cache}->{$ifIndex}->{ifAlias} || '________';
     my $ifName = $self->{interface_cache}->{$ifIndex}->{ifName};
     # Check ifDescr (using --name)
     if ($self->opts->name) {
@@ -714,15 +732,16 @@ sub get_interface_indices {
       if (lc $ifName eq lc $self->opts->name2) {
         push(@indices, [$ifIndex]);
       }
-    # Check ifAlias (using --name3)
+    # Check the resolved attribute (using --name3, default ifAlias)
     } elsif ($self->opts->name3) {
+      my $name3_attr_value = $self->{interface_cache}->{$ifIndex}->{$name3_attr} || '________';
       if ($self->opts->regexp) {
-        my $pattern = $self->opts->name3;
-        if ($ifAlias =~ /$pattern/i) {
+        my $pattern = $name3_value;
+        if ($name3_attr_value =~ /$pattern/i) {
           push(@indices, [$ifIndex]);
         }
       } else {
-        if (lc $ifAlias eq lc $self->opts->name3) {
+        if (lc $name3_attr_value eq lc $name3_value) {
           push(@indices, [$ifIndex]);
         }
       }
