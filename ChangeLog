@@ -1,3 +1,5 @@
+* 2026-07-07 12.13.1
+  rewire HP::ArubaOS, HP::ArubaWired, Alcatel::OmniAccess
 * 2026-07-03 12.13
   --name3 can now use any attribute for filting interfaces, with ifAlias still being the default.
   Currently implemented for Lancom as --name3 lcsPortConfDescription::guestWifi)
