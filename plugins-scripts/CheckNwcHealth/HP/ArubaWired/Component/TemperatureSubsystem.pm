@@ -1,15 +1,15 @@
-package CheckNwcHealth::HP::Aruba::Component::TemperatureSubsystem;
+package CheckNwcHealth::HP::ArubaWired::Component::TemperatureSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('ARUBAWIRED-TEMPSENSOR-MIB', [
-      ['temps', 'arubaWiredTempSensorTable', 'CheckNwcHealth::HP::Aruba::Component::TemperatureSubsystem::Tempsensor'],
+      ['temps', 'arubaWiredTempSensorTable', 'CheckNwcHealth::HP::ArubaWired::Component::TemperatureSubsystem::Tempsensor'],
   ]);
 }
 
-package CheckNwcHealth::HP::Aruba::Component::TemperatureSubsystem::Tempsensor;
+package CheckNwcHealth::HP::ArubaWired::Component::TemperatureSubsystem::Tempsensor;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

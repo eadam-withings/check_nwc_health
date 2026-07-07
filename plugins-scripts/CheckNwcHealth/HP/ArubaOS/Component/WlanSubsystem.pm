@@ -1,4 +1,4 @@
-package CheckNwcHealth::Alcatel::OmniAccess::Component::WlanSubsystem;
+package CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
@@ -6,7 +6,7 @@ sub init {
   my ($self) = @_;
   $self->get_snmp_objects('WLSX-WLAN-MIB', qw(wlsxWlanTotalNumAccessPoints));
   $self->get_snmp_tables('WLSX-WLAN-MIB', [
-      ['aps', 'wlsxWlanAPTable', 'CheckNwcHealth::Alcatel::OmniAccess::Component::WlanSubsystem::AP', sub { return $self->filter_name(shift->{wlanAPName}) } ],
+      ['aps', 'wlsxWlanAPTable', 'CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem::AP', sub { return $self->filter_name(shift->{wlanAPName}) } ],
   ]);
 }
 
@@ -73,7 +73,7 @@ sub check {
   }
 }
 
-package CheckNwcHealth::Alcatel::OmniAccess::Component::WlanSubsystem::AP;
+package CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem::AP;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

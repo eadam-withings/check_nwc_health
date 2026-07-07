@@ -1,15 +1,15 @@
-package CheckNwcHealth::HP::Aruba::Component::EnvironmentalSubsystem;
+package CheckNwcHealth::HP::ArubaWired::Component::EnvironmentalSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->{powersupply_subsystem} =
-      CheckNwcHealth::HP::Aruba::Component::PowersupplySubsystem->new();
+      CheckNwcHealth::HP::ArubaWired::Component::PowersupplySubsystem->new();
   $self->{fan_subsystem} =
-      CheckNwcHealth::HP::Aruba::Component::FanSubsystem->new();
+      CheckNwcHealth::HP::ArubaWired::Component::FanSubsystem->new();
   $self->{temperature_subsystem} =
-      CheckNwcHealth::HP::Aruba::Component::TemperatureSubsystem->new();
+      CheckNwcHealth::HP::ArubaWired::Component::TemperatureSubsystem->new();
 }
 
 sub check {
@@ -20,7 +20,7 @@ sub check {
   $self->reduce_messages("hardware working fine");
 }
 
-sub xdump {
+sub dump {
   my ($self) = @_;
   $self->{powersupply_subsystem}->dump();
   $self->{fan_subsystem}->dump();

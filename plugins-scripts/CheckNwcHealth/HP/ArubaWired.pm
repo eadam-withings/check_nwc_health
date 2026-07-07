@@ -1,11 +1,11 @@
-package CheckNwcHealth::HP::Aruba;
+package CheckNwcHealth::HP::ArubaWired;
 our @ISA = qw(CheckNwcHealth::HP);
 use strict;
 
 sub init {
   my ($self) = @_;
   if ($self->mode =~ /device::hardware::health/) {
-    $self->analyze_and_check_environmental_subsystem("CheckNwcHealth::HP::Aruba::Component::EnvironmentalSubsystem");
+    $self->analyze_and_check_environmental_subsystem("CheckNwcHealth::HP::ArubaWired::Component::EnvironmentalSubsystem");
     if ($self->implements_mib("iiENTITY-SENSOR-MIB")) {
       $self->analyze_and_check_environmental_subsystem("CheckNwcHealth::ENTITYSENSORMIB::Component::EnvironmentalSubsystem");
     }
@@ -13,13 +13,13 @@ sub init {
     $self->reduce_messages_short('environmental hardware working fine');
   } elsif ($self->mode =~ /device::hardware::load/) {
     if ($self->implements_mib("ARUBAWIRED-VSF-MIB")) {
-      $self->analyze_and_check_cpu_subsystem("CheckNwcHealth::HP::Aruba::Component::CpuSubsystem");
+      $self->analyze_and_check_cpu_subsystem("CheckNwcHealth::HP::ArubaWired::Component::CpuSubsystem");
     } else {
       $self->analyze_and_check_cpu_subsystem("CheckNwcHealth::HOSTRESOURCESMIB::Component::CpuSubsystem");
     }
   } elsif ($self->mode =~ /device::hardware::memory/) {
     if ($self->implements_mib("ARUBAWIRED-VSF-MIB")) {
-      $self->analyze_and_check_cpu_subsystem("CheckNwcHealth::HP::Aruba::Component::CpuSubsystem");
+      $self->analyze_and_check_cpu_subsystem("CheckNwcHealth::HP::ArubaWired::Component::CpuSubsystem");
     } else {
       $self->analyze_and_check_mem_subsystem("CheckNwcHealth::HOSTRESOURCESMIB::Component::MemSubsystem");
     }

@@ -1,15 +1,15 @@
-package CheckNwcHealth::Alcatel::OmniAccess::Component::FanSubsystem;
+package CheckNwcHealth::HP::ArubaOS::Component::FanSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('WLSX-SYSTEMEXT-MIB', [
-      ['fans', 'wlsxSysExtFanTable', 'CheckNwcHealth::Alcatel::OmniAccess::Component::FanSubsystem::Fan'],
+      ['fans', 'wlsxSysExtFanTable', 'CheckNwcHealth::HP::ArubaOS::Component::FanSubsystem::Fan'],
   ]);
 }
 
-package CheckNwcHealth::Alcatel::OmniAccess::Component::FanSubsystem::Fan;
+package CheckNwcHealth::HP::ArubaOS::Component::FanSubsystem::Fan;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

@@ -406,13 +406,22 @@ EXTRA_MODULES=\
   CheckNwcHealth/HP/Procurve/Component/EnvironmentalSubsystem.pm \
   CheckNwcHealth/HP/Procurve/Component/SensorSubsystem.pm \
   CheckNwcHealth/HP/Procurve.pm \
-  CheckNwcHealth/HP/Aruba/Component/MemSubsystem.pm \
-  CheckNwcHealth/HP/Aruba/Component/CpuSubsystem.pm \
-  CheckNwcHealth/HP/Aruba/Component/TemperatureSubsystem.pm \
-  CheckNwcHealth/HP/Aruba/Component/FanSubsystem.pm \
-  CheckNwcHealth/HP/Aruba/Component/PowersupplySubsystem.pm \
-  CheckNwcHealth/HP/Aruba/Component/EnvironmentalSubsystem.pm \
-  CheckNwcHealth/HP/Aruba.pm \
+  CheckNwcHealth/HP/ArubaWired/Component/MemSubsystem.pm \
+  CheckNwcHealth/HP/ArubaWired/Component/CpuSubsystem.pm \
+  CheckNwcHealth/HP/ArubaWired/Component/TemperatureSubsystem.pm \
+  CheckNwcHealth/HP/ArubaWired/Component/FanSubsystem.pm \
+  CheckNwcHealth/HP/ArubaWired/Component/PowersupplySubsystem.pm \
+  CheckNwcHealth/HP/ArubaWired/Component/EnvironmentalSubsystem.pm \
+  CheckNwcHealth/HP/ArubaWired.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/HaSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/MemSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/CpuSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/PowersupplySubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/FanSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/StorageSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/EnvironmentalSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS/Component/WlanSubsystem.pm \
+  CheckNwcHealth/HP/ArubaOS.pm \
   CheckNwcHealth/HP.pm \
   CheckNwcHealth/MEOS.pm \
   CheckNwcHealth/Brocade.pm \
@@ -519,16 +528,6 @@ EXTRA_MODULES=\
   CheckNwcHealth/AVOS/Component/MemSubsystem.pm \
   CheckNwcHealth/AVOS/Component/CpuSubsystem.pm \
   CheckNwcHealth/AVOS.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/HaSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/MemSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/CpuSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/PowersupplySubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/FanSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/StorageSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/EnvironmentalSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess/Component/WlanSubsystem.pm \
-  CheckNwcHealth/Alcatel/OmniAccess.pm \
-  CheckNwcHealth/Alcatel.pm \
   CheckNwcHealth/ALARMMIB/Component/AlarmSubsystem.pm \
   CheckNwcHealth/Foundry/Component/SLBSubsystem.pm \
   CheckNwcHealth/Foundry/Component/MemSubsystem.pm \

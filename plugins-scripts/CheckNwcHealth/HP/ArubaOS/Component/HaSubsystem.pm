@@ -1,4 +1,4 @@
-package CheckNwcHealth::Alcatel::OmniAccess::Component::HaSubsystem;
+package CheckNwcHealth::HP::ArubaOS::Component::HaSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 use constant { OK => 0, WARNING => 1, CRITICAL => 2, UNKNOWN => 3 };

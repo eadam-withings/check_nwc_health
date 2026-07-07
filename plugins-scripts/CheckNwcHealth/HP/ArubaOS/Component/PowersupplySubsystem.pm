@@ -1,15 +1,15 @@
-package CheckNwcHealth::Alcatel::OmniAccess::Component::PowersupplySubsystem;
+package CheckNwcHealth::HP::ArubaOS::Component::PowersupplySubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('WLSX-SYSTEMEXT-MIB', [
-      ['powersupplies', 'wlsxSysExtPowerSupplyTable', 'CheckNwcHealth::Alcatel::OmniAccess::Component::PowersupplySubsystem::Powersupply'],
+      ['powersupplies', 'wlsxSysExtPowerSupplyTable', 'CheckNwcHealth::HP::ArubaOS::Component::PowersupplySubsystem::Powersupply'],
   ]);
 }
 
-package CheckNwcHealth::Alcatel::OmniAccess::Component::PowersupplySubsystem::Powersupply;
+package CheckNwcHealth::HP::ArubaOS::Component::PowersupplySubsystem::Powersupply;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

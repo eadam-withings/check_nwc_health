@@ -1,15 +1,15 @@
-package CheckNwcHealth::HP::Aruba::Component::FanSubsystem;
+package CheckNwcHealth::HP::ArubaWired::Component::FanSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('ARUBAWIRED-FAN-MIB', [
-      ['fans', 'arubaWiredFanTable', 'CheckNwcHealth::HP::Aruba::Component::FanSubsystem::Fan'],
+      ['fans', 'arubaWiredFanTable', 'CheckNwcHealth::HP::ArubaWired::Component::FanSubsystem::Fan'],
   ]);
 }
 
-package CheckNwcHealth::HP::Aruba::Component::FanSubsystem::Fan;
+package CheckNwcHealth::HP::ArubaWired::Component::FanSubsystem::Fan;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

@@ -1,11 +1,11 @@
-package CheckNwcHealth::HP::Aruba::Component::CpuSubsystem;
+package CheckNwcHealth::HP::ArubaWired::Component::CpuSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('ARUBAWIRED-VSF-MIB', [
-      ['members', 'arubaWiredVsfCpuberTable', 'CheckNwcHealth::HP::Aruba::Component::CpuSubsystem::Cpu'],
+      ['members', 'arubaWiredVsfCpuberTable', 'CheckNwcHealth::HP::ArubaWired::Component::CpuSubsystem::Cpu'],
   ]);
 }
 
@@ -21,7 +21,7 @@ sub check {
 }
 
 
-package CheckNwcHealth::HP::Aruba::Component::CpuSubsystem::Cpu;
+package CheckNwcHealth::HP::ArubaWired::Component::CpuSubsystem::Cpu;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

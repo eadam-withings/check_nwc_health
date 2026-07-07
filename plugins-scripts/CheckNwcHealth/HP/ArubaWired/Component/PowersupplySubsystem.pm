@@ -1,15 +1,18 @@
-package CheckNwcHealth::HP::Aruba::Component::PowersupplySubsystem;
+package CheckNwcHealth::HP::ArubaWired::Component::PowersupplySubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('ARUBAWIRED-POWERSUPPLY-MIB', [
-      ['powersupplies', 'arubaWiredPowerSupplyTable', 'CheckNwcHealth::HP::Aruba::Component::PowersupplySubsystem::Powersupply'],
+      ['powersupplies', 'arubaWiredPowerSupplyTable', 'CheckNwcHealth::HP::ArubaWired::Component::PowersupplySubsystem::Powersupply'],
+  ]);
+  $self->get_snmp_tables('ENTITY-MIBx', [
+      ['powersupplies2', 'entPhysicalTable', 'Monitoring::GLPlugin::SNMP::TableItem'],
   ]);
 }
 
-package CheckNwcHealth::HP::Aruba::Component::PowersupplySubsystem::Powersupply;
+package CheckNwcHealth::HP::ArubaWired::Component::PowersupplySubsystem::Powersupply;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 

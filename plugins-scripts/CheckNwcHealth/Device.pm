@@ -152,7 +152,7 @@ sub classify {
       } elsif ($self->{sysobjectid} =~ /1\.3\.6\.1\.4\.1\.2011\.2\./) {
         $self->rebless('CheckNwcHealth::Huawei');
       } elsif ($self->implements_mib('ARUBAWIRED-CHASSIS-MIB')) {
-        $self->rebless('CheckNwcHealth::HP::Aruba');
+        $self->rebless('CheckNwcHealth::HP::ArubaWired');
       } elsif ($self->implements_mib('DELLEMC-OS10-CHASSIS-MIB')) {
         $self->rebless('CheckNwcHealth::Dell::OS10');
       } elsif ($self->{productname} =~ /Procurve/i ||
@@ -183,8 +183,12 @@ sub classify {
         $self->rebless('CheckNwcHealth::Fortinet');
       } elsif ($self->implements_mib('FORTINET-FORTIMAIL-MIB')) {
         $self->rebless('CheckNwcHealth::Fortinet');
-      } elsif ($self->implements_mib('ALCATEL-IND1-BASE-MIB') and $self->{productname} !~ /aruba/i) {
-        $self->rebless('CheckNwcHealth::Alcatel');
+      } elsif ($self->implements_mib('WLSX-SYSTEMEXT-MIB')) {
+        # WLSX-first converges both Aruba-badged and Alcatel-badged OmniAccess
+        # controllers onto HP::ArubaOS (both implement ALCATEL-IND1-BASE-MIB too)
+        $self->rebless('CheckNwcHealth::HP::ArubaOS');
+        # a genuine Alcatel OmniSwitch (ALCATEL-IND1-BASE-MIB, no WLSX) now
+        # falls through to the generic discovery/Generic fallback below
       } elsif ($self->implements_mib('ONEACCESS-SYS-MIB')) {
         $self->rebless('CheckNwcHealth::OneOS');
       } elsif ($self->{productname} eq "ifmib") {
@@ -211,7 +215,7 @@ sub classify {
       } elsif ($self->implements_mib('AC-SYSTEM-MIB')) {
         $self->rebless('CheckNwcHealth::Audiocodes');
       } elsif ($self->implements_mib('ARUBAWIRED-CHASSIS-MIB')) {
-        $self->rebless('CheckNwcHealth::HP::Aruba');
+        $self->rebless('CheckNwcHealth::HP::ArubaWired');
       } elsif ($self->implements_mib('DEVICE-MIB') and $self->{productname} =~ /Versa Appliance/) {
         $self->rebless('CheckNwcHealth::Versa');
       } elsif ($self->implements_mib('SKYHIGHSECURITY-SWG-MIB') and $self->{productname} =~ /Skyhigh Secure Web Gateway/) {

@@ -1,17 +1,17 @@
-package CheckNwcHealth::Alcatel::OmniAccess::Component::EnvironmentalSubsystem;
+package CheckNwcHealth::HP::ArubaOS::Component::EnvironmentalSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->{fan_subsystem} =
-      CheckNwcHealth::Alcatel::OmniAccess::Component::FanSubsystem->new();
+      CheckNwcHealth::HP::ArubaOS::Component::FanSubsystem->new();
   $self->get_snmp_objects('WLSX-SYSTEMEXT-MIB', qw(
       wlsxSysExtInternalTemparature));
   $self->{powersupply_subsystem} = 
-      CheckNwcHealth::Alcatel::OmniAccess::Component::PowersupplySubsystem->new();
+      CheckNwcHealth::HP::ArubaOS::Component::PowersupplySubsystem->new();
   $self->{storage_subsystem} = 
-      CheckNwcHealth::Alcatel::OmniAccess::Component::StorageSubsystem->new();
+      CheckNwcHealth::HP::ArubaOS::Component::StorageSubsystem->new();
 }
 
 sub check {

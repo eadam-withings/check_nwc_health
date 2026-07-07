@@ -1,16 +1,16 @@
-package CheckNwcHealth::Alcatel::OmniAccess::Component::CpuSubsystem;
+package CheckNwcHealth::HP::ArubaOS::Component::CpuSubsystem;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::Item);
 use strict;
 
 sub init {
   my ($self) = @_;
   $self->get_snmp_tables('WLSX-SYSTEMEXT-MIB', [
-      ['memories', 'wlsxSysExtProcessorTable', 'CheckNwcHealth::Alcatel::OmniAccess::Component::CpuSubsystem::Cpu'],
+      ['memories', 'wlsxSysExtProcessorTable', 'CheckNwcHealth::HP::ArubaOS::Component::CpuSubsystem::Cpu'],
   ]);
 }
 
 
-package CheckNwcHealth::Alcatel::OmniAccess::Component::CpuSubsystem::Cpu;
+package CheckNwcHealth::HP::ArubaOS::Component::CpuSubsystem::Cpu;
 our @ISA = qw(Monitoring::GLPlugin::SNMP::TableItem);
 use strict;
 
