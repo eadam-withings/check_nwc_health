@@ -60,9 +60,7 @@ sub classify {
       $self->{productname} = 'generic_ucd' if $self->opts->servertype eq 'generic_ucd';
       $self->{productname} = 'FritzBox7390' if $self->opts->servertype eq 'generic_fritzbox';
     }
-    if ($self->opts->mode eq "uptime" && $self->opts->mode eq "short") {
-      return $self;
-    } elsif (! $self->check_messages()) {
+    if (! $self->check_messages()) {
       $self->debug("I am a ".$self->{productname}."\n");
       if ($self->opts->mode =~ /^my-/) {
         $self->load_my_extension();
@@ -185,7 +183,7 @@ sub classify {
         $self->rebless('CheckNwcHealth::Fortinet');
       } elsif ($self->implements_mib('FORTINET-FORTIMAIL-MIB')) {
         $self->rebless('CheckNwcHealth::Fortinet');
-      } elsif ($self->implements_mib('ALCATEL-IND1-BASE-MIB')) {
+      } elsif ($self->implements_mib('ALCATEL-IND1-BASE-MIB') and $self->{productname} !~ /aruba/i) {
         $self->rebless('CheckNwcHealth::Alcatel');
       } elsif ($self->implements_mib('ONEACCESS-SYS-MIB')) {
         $self->rebless('CheckNwcHealth::OneOS');
