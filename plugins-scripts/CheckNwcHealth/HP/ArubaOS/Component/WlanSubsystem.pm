@@ -5,9 +5,33 @@ use strict;
 sub init {
   my ($self) = @_;
   $self->get_snmp_objects('WLSX-WLAN-MIB', qw(wlsxWlanTotalNumAccessPoints));
-  $self->get_snmp_tables('WLSX-WLAN-MIB', [
-      ['aps', 'wlsxWlanAPTable', 'CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem::AP', sub { return $self->filter_name(shift->{wlanAPName}) } ],
-  ]);
+  if ($self->mode =~ /device::wlan::aps::list/) {
+    # list mode only needs AP names, no need to fetch status/MAC columns
+    $self->get_snmp_tables('WLSX-WLAN-MIB', [
+        ['aps', 'wlsxWlanAPTable', 'CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem::AP', undef, ['wlanAPName'], 'wlanAPName' ],
+    ]);
+  } else {
+    # Fetch AP entries with entry cache for efficient --name filtering.
+    # wlanAPName is the cache key because users filter by AP name.
+    # Without --name, get_cache_indices() returns empty -> full table walk.
+    # filter_name() is no longer needed here: get_cache_indices() already
+    # applies --name/--regexp matching before rows are fetched.
+    $self->get_snmp_tables('WLSX-WLAN-MIB', [
+        ['aps', 'wlsxWlanAPTable', 'CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem::AP', undef, ['wlanAPName', 'wlanAPStatus', 'wlanAPMacAddress'], 'wlanAPName' ],
+    ]);
+    # If the search did not find the desired AP, this could mean that it is new and was not
+    # discovered yet. In this case we enforce a walk over the wlsxWlanAPTable and refresh the cache.
+    if ($self->opts->name && scalar(@{$self->{aps}}) == 0) {
+      $self->debug(sprintf "%s was not found (either in the cache or in the walk), rediscovering...",
+          $self->opts->name);
+      $self->clear_table_cache('WLSX-WLAN-MIB', 'wlsxWlanAPTable');
+      $self->update_entry_cache(1, 'WLSX-WLAN-MIB', 'wlsxWlanAPTable', 'wlanAPName', time);
+      $self->get_snmp_tables('WLSX-WLAN-MIB', [
+          ['aps', 'wlsxWlanAPTable', 'CheckNwcHealth::HP::ArubaOS::Component::WlanSubsystem::AP', undef, ['wlanAPName', 'wlanAPStatus', 'wlanAPMacAddress'], 'wlanAPName' ],
+      ]);
+      $self->debug("rewalked WLSX-WLAN-MIB::wlsxWlanAPTable#wlanAPName");
+    }
+  }
 }
 
 sub check {
@@ -18,6 +42,14 @@ sub check {
   if (scalar (@{$self->{aps}}) == 0) {
     $self->add_unknown('no access points found');
   } else {
+    if ($self->mode =~ /device::wlan::aps::list/) {
+      # list mode only fetched wlanAPName (see init()); skip AP->check(),
+      # which needs wlanAPStatus, and print names directly.
+      foreach (@{$self->{aps}}) {
+        printf "%s\n", $_->{wlanAPName};
+      }
+      return;
+    }
     foreach (@{$self->{aps}}) {
       $_->check();
     }
@@ -65,10 +97,6 @@ sub check {
           label => 'num_down_aps',
           value => scalar (grep { $_->{wlanAPStatus} eq "down" } @{$self->{aps}}),
       );
-    } elsif ($self->mode =~ /device::wlan::aps::list/) {
-      foreach (@{$self->{aps}}) {
-        printf "%s\n", $_->{wlanAPName};
-      }
     }
   }
 }

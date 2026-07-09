@@ -1,3 +1,5 @@
+* 2026-07-09 12.13.2
+  add an AP cache for ArubaOS wlan-aps
 * 2026-07-07 12.13.1
   rewire HP::ArubaOS, HP::ArubaWired, Alcatel::OmniAccess
 * 2026-07-03 12.13
