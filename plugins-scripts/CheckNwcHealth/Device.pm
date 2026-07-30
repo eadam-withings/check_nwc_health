@@ -59,6 +59,7 @@ sub classify {
       $self->{productname} = 'generic_hostresources' if $self->opts->servertype eq 'generic_hostresources';
       $self->{productname} = 'generic_ucd' if $self->opts->servertype eq 'generic_ucd';
       $self->{productname} = 'FritzBox7390' if $self->opts->servertype eq 'generic_fritzbox';
+      $self->{productname} = 'fsos' if $self->opts->servertype eq 'fsos';
     }
     if (! $self->check_messages()) {
       $self->debug("I am a ".$self->{productname}."\n");
@@ -123,6 +124,8 @@ sub classify {
         $self->rebless('CheckNwcHealth::PulseSecure::Gateway');
       } elsif ($self->implements_mib('LCOS-SX-MIB')) {
         $self->rebless('CheckNwcHealth::Lancom');
+      } elsif ($self->implements_mib('FIBERSTORE-PRODUCTS-MIB')) {
+        $self->rebless('CheckNwcHealth::FSOS');
       } elsif ($self->{productname} =~ /(Juniper|NetScreen|JunOS)/i) {
         $self->rebless('CheckNwcHealth::Juniper');
       } elsif ($self->{productname} =~ /^(GS|FS)/i) {

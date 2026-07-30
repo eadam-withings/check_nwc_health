@@ -121,6 +121,7 @@ GL_MODULES=\
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FCEOSMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FCMGMTMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FIBRECHANNELFEMIB.pm \
+  ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FIBERSTOREPRODUCTSMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FORTINETCOREMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FORTINETFORTIGATEMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/FORTINETFORTIMAILMIB.pm \
@@ -632,6 +633,11 @@ EXTRA_MODULES=\
   CheckNwcHealth/Audiocodes/Component/IpGroupSubsystem.pm \
   CheckNwcHealth/Audiocodes/Component/ConfigSubsystem.pm \
   CheckNwcHealth/Audiocodes.pm \
+  CheckNwcHealth/FSOS.pm \
+  CheckNwcHealth/FSOS/Component/CpuSubsystem.pm \
+  CheckNwcHealth/FSOS/Component/DiskSubsystem.pm \
+  CheckNwcHealth/FSOS/Component/EnvironmentalSubsystem.pm \
+  CheckNwcHealth/FSOS/Component/MemSubsystem.pm \
   CheckNwcHealth/Device.pm
 
 SED=/bin/sed
