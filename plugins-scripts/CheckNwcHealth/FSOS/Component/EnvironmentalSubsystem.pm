@@ -77,16 +77,22 @@ sub check {
     }
   }
 
-  # Temperature: default warn 40 / crit 50, overridable per-metric
+  # Temperature: default warn 65 / crit 80, overridable per-metric
   foreach my $t (@{$self->{temps}}) {
     my $idx = $t->{flat_indices} // '?';
     my $c   = $t->{fsTempCurrent};
     next if ! defined $c;
     my $metric = sprintf('temp_sensor_%s', $idx);
-    $self->set_thresholds(metric => $metric, warning => 40, critical => 50);
+    $self->set_thresholds(metric => $metric, warning => 65, critical => 80);
     my ($w, $cr) = $self->get_thresholds(metric => $metric);
     my $level = $self->check_thresholds(value => $c, metric => $metric);
-    $self->add_message($level, sprintf('temp sensor %s = %s C', $idx, $c));
+    my $pos = "unknown";
+    if ($idx == 1) {
+      $pos = "AROUND_CHIP";
+    } elsif ($idx == 2) {
+      $pos = "SWITCH_CHIP";
+    }
+    $self->add_message($level, sprintf('temp sensor %s (%s) = %s C', $idx, $pos, $c));
     $self->add_perfdata(
       label    => $metric,
       value    => $c,
