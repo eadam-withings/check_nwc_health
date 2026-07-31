@@ -14,7 +14,7 @@ sub init {
   } elsif ($mode =~ /device::hardware::health|hardware-health/) {
     $self->analyze_and_check_environmental_subsystem("CheckNwcHealth::FSOS::Component::EnvironmentalSubsystem");
   } elsif ($mode =~ /device::interfaces|interface-usage/) {
-    $self->analyze_and_check_interface_subsystem("CheckNwcHealth::IFMIB::Component::InterfaceSubsystem");
+    $self->analyze_and_check_interface_subsystem("CheckNwcHealth::FSOS::Component::InterfaceSubsystem");
   } else {
     $self->no_such_mode();
   }

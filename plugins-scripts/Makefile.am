@@ -637,6 +637,7 @@ EXTRA_MODULES=\
   CheckNwcHealth/FSOS/Component/CpuSubsystem.pm \
   CheckNwcHealth/FSOS/Component/DiskSubsystem.pm \
   CheckNwcHealth/FSOS/Component/EnvironmentalSubsystem.pm \
+  CheckNwcHealth/FSOS/Component/InterfaceSubsystem.pm \
   CheckNwcHealth/FSOS/Component/MemSubsystem.pm \
   CheckNwcHealth/Device.pm
 
