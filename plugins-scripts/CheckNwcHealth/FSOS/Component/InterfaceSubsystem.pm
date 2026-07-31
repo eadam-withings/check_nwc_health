@@ -39,16 +39,27 @@ sub check {
         && $if->{ifAliasRaw} ne '0';
     my $is_down = ($if->{ifOperStatus} eq 'down'
         || $if->{ifAdminStatus} eq 'down');
-    # Only "in error" interfaces produce output. All others are silently
-    # considered healthy so the plugin output stays focused on real problems.
-    next if ! ($is_down && $has_alias);
-    my $msg = sprintf '%s (alias "%s") is %s/%s',
-        $if->{ifDescr}, $if->{ifAliasRaw},
-        $if->{ifOperStatus}, $if->{ifAdminStatus};
-    $if->add_info($msg);
-    $if->add_message(
-        defined $if->opts->mitigation() ? $if->opts->mitigation() : 2,
-        $msg);
+    my $is_up = ($if->{ifOperStatus} eq 'up'
+        && $if->{ifAdminStatus} eq 'up');
+    if ($is_down && $has_alias) {
+      # down (or admin-shut) interface with a real description: fault.
+      my $msg = sprintf '%s (alias "%s") is %s/%s',
+          $if->{ifDescr}, $if->{ifAliasRaw},
+          $if->{ifOperStatus}, $if->{ifAdminStatus};
+      $if->add_info($msg);
+      $if->add_message(
+          defined $if->opts->mitigation() ? $if->opts->mitigation() : 2,
+          $msg);
+    } elsif ($is_up && ! $has_alias) {
+      # up interface without a description: missing configuration.
+      my $msg = sprintf '%s is up/up but has no description',
+          $if->{ifDescr};
+      $if->add_info($msg);
+      $if->add_message(
+          defined $if->opts->mitigation() ? $if->opts->mitigation() : 2,
+          $msg);
+    }
+    # everything else is silently considered healthy.
   }
   $self->add_ok('all interfaces healthy') if ! $self->check_messages();
 }
